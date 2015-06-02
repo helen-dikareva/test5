@@ -1,0 +1,20 @@
+{
+  "name": "test5",
+  "version": "1.0.0",
+  "description": "test qunit qulp",
+  "homepage": "https://github.com/dikareva/test5",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dikareva/test5.git"
+  },
+  "engines": [
+    "node"
+  ],
+  "dependencies": {
+    "gulp": "~3.9.0",
+    "gulp-connect": "~2.2.0",
+    "sauce-tunnel": "~2.2.3",
+    "promise": "~7.0.1",
+    "request": "~2.57.0"
+  }
+}
