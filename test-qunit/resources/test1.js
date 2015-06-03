@@ -26,14 +26,9 @@ QUnit.testStart(function (testDetails) {
     }
 });
 
-test("hello test", function () {
-    ok(1 == "1", "Passed!");
-});
-
-/*
-asyncTest('async', function () {
+asyncTest('async test 1', function () {
     window.setTimeout(function () {
         ok(1 == "1", "Passed!");
         start();
-    }, 5000);
-});*/
+    }, 500);
+});

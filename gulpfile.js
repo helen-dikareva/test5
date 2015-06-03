@@ -1,15 +1,15 @@
-var gulp = require('gulp'),
+var gulp        = require('gulp'),
     gulpConnect = require('gulp-connect'),
-    Promise = require('promise'),
+    Promise     = require('promise'),
     SauceTunnel = require('sauce-tunnel'),
     QUnitRunner = require('./lib/saucelab-qunit-runner');
 
 var SAUCELAB_USERNAME = 'dikareva_github';
 var SAUCELAB_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
-var BROWSERS = [{
+var BROWSERS          = [{
     browserName: "chrome",
-    version: "43",
-    platform: "Windows 7"
+    version:     "43",
+    platform:    "Windows 7"
 }];
 
 var tunnelIdentifier = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
@@ -38,14 +38,14 @@ gulp.task('sauce-start', function () {
 
 gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
     var runner = new QUnitRunner({
-        username: SAUCELAB_USERNAME,
-        key: SAUCELAB_PASSWORD,
-        browsers: BROWSERS,
+        username:         SAUCELAB_USERNAME,
+        key:              SAUCELAB_PASSWORD,
+        browsers:         BROWSERS,
         tunnelIdentifier: tunnelIdentifier
     });
 
     runner.runTests(function (result) {
-        console.log(JSON.stringify(result));
+        console.log(JSON.stringify(result, null, 4));
         callback();
     });
 });
