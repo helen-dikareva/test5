@@ -6,11 +6,15 @@ var gulp        = require('gulp'),
 
 var SAUCELAB_USERNAME = 'dikareva_github';
 var SAUCELAB_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
-var BROWSERS          = [{
-    browserName: "chrome",
-    version:     "43",
-    platform:    "Windows 7"
-}];
+var BROWSERS          = [
+    {
+        browserName: "chrome",
+        platform:    "Windows 7"
+    },
+    {
+        browserName: "firefox",
+        platform:    "Windows 8"
+    }];
 
 var tunnelIdentifier = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
 var sauceTunnel      = null;
@@ -58,7 +62,7 @@ gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
 
         taskSucceed = !failedCount;
 
-        if(!taskSucceed)
+        if (!taskSucceed)
             console.log(failedCount, 'test(s) are failed');
         callback();
     });
