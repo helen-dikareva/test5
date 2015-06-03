@@ -16,9 +16,10 @@ var BROWSERS          = [
         platform:    "Windows 8"
     }];
 
-var tunnelIdentifier = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
-var sauceTunnel      = null;
-var taskSucceed      = true;
+var tunnelIdentifier  = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
+var sauceTunnel       = null;
+var sauceTunnelOpened = false;
+var taskSucceed       = true;
 
 gulp.task('open-connect', function () {
     gulpConnect.server({
@@ -29,13 +30,15 @@ gulp.task('open-connect', function () {
 
 gulp.task('sauce-start', function () {
     return new Promise(function (resolve, reject) {
-        sauceTunnel = new SauceTunnel(SAUCELAB_USERNAME, SAUCELAB_PASSWORD, tunnelIdentifier, true);
+        sauceTunnel = new SauceTunnel(SAUCELAB_USERNAME, SAUCELAB_PASSWORD, tunnelIdentifier, true, ['-l', 'logs/saucelabs-log.txt']);
 
         sauceTunnel.start(function (isCreated) {
             if (!isCreated)
                 reject('Failed to create Sauce tunnel');
-            else
+            else {
+                sauceTunnelOpened = true;
                 resolve('Connected to Sauce Labs');
+            }
         });
     });
 });
@@ -70,6 +73,7 @@ gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
 
 gulp.task('sauce-end', ['run-tests'], function (callback) {
     //TODO: close it in all cases
+    sauceTunnelOpened = false;
     sauceTunnel.stop(callback);
 });
 
@@ -81,4 +85,15 @@ gulp.task('close-connect', ['run-tests'], function () {
 gulp.task('QUnit', ['close-connect', 'sauce-end'], function (arg) {
     if (!taskSucceed)
         process.exit(1);
+});
+
+gulp.on('err', function () {
+    if (sauceTunnelOpened)
+        sauceTunnel.stop(function () {
+            process.exit(1);
+        });
+    else
+        setTimeout(function () {
+            process.exit(1);
+        });
 });
