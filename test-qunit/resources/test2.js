@@ -27,7 +27,7 @@ QUnit.testStart(function (testDetails) {
 });
 
 test("hello test 2", function () {
-    ok(1 != "1", "Passed!");
+    ok(1 == "1", "Passed!");
 });
 
 
