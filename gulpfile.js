@@ -13,8 +13,8 @@ var BROWSERS          = [{
 }];
 
 var tunnelIdentifier = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
-
-var sauceTunnel = null;
+var sauceTunnel      = null;
+var taskSucceed      = true;
 
 gulp.task('open-connect', function () {
     gulpConnect.server({
@@ -44,16 +44,29 @@ gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
         tunnelIdentifier: tunnelIdentifier
     });
 
-    runner.runTests(function (result) {
-        console.log(JSON.stringify(result, null, 4));
+    runner.runTests(function (results) {
+        var failedCount = false;
+
+        console.log(JSON.stringify(results, null, 4));
+
+        for (var i = 0; i < results.length; i++) {
+            var result = results[i];
+
+            if (result.result.failed)
+                failedCount += result.result.failed;
+        }
+
+        taskSucceed = !failedCount;
+
+        if(!taskSucceed)
+            console.log(failedCount, 'test(s) are failed');
         callback();
     });
 });
 
-gulp.task('sauce-end', ['run-tests'], function () {
-    return new Promise(function (resolve) {
-        sauceTunnel.stop(resolve);
-    })
+gulp.task('sauce-end', ['run-tests'], function (callback) {
+    //TODO: close it in all cases
+    sauceTunnel.stop(callback);
 });
 
 gulp.task('close-connect', ['run-tests'], function () {
@@ -61,4 +74,7 @@ gulp.task('close-connect', ['run-tests'], function () {
 
 });
 
-gulp.task('QUnit', ['close-connect', 'sauce-end']);
+gulp.task('QUnit', ['close-connect', 'sauce-end'], function (arg) {
+    if (!taskSucceed)
+        process.exit(1);
+});
