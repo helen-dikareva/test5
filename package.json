@@ -16,5 +16,8 @@
     "sauce-tunnel": "~2.2.3",
     "promise": "~7.0.1",
     "request": "~2.57.0"
+  },
+  "scripts": {
+      "test": "gulp QUnit"
   }
 }
