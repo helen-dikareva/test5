@@ -4,8 +4,8 @@ var gulp = require('gulp'),
     SauceTunnel = require('sauce-tunnel'),
     QUnitRunner = require('./lib/saucelab-qunit-runner');
 
-var SAUCELAB_USERNAME = 'dikareva';
-var SAUCELAB_PASSWORD = 'ad6987e8-cc8f-47c0-80fd-abebab6c7287';
+var SAUCELAB_USERNAME = 'dikareva_github';
+var SAUCELAB_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
 var BROWSERS = [{
     browserName: "chrome",
     version: "43",
