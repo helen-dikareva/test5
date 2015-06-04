@@ -26,9 +26,6 @@ QUnit.testStart(function (testDetails) {
     }
 });
 
-asyncTest('async test 1', function () {
-    window.setTimeout(function () {
-        ok(1 == "1", "Passed!");
-        start();
-    }, 500);
+test("hello test 1", function () {
+    equal("1", "1", "Passed!");
 });

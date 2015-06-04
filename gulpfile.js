@@ -56,12 +56,12 @@ gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
 
         console.log(JSON.stringify(results, null, 4));
 
-        for (var i = 0; i < results.length; i++) {
-            var result = results[i];
-
-            if (result.result.failed)
-                failedCount += result.result.failed;
-        }
+        results.forEach(function (resultsByUrl) {
+            resultsByUrl.forEach(function (platformResults) {
+                if (platformResults.result.failed)
+                    failedCount += platformResults.result.failed;
+            });
+        });
 
         taskSucceed = !failedCount;
 
