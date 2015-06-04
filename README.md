@@ -7,7 +7,7 @@ SauceLabs
 [![Sauce Test Status](https://saucelabs.com/buildstatus/dikareva_github)](https://saucelabs.com/u/dikareva_github)
 
 SauceLabs Browsers Matrix
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/dikareva_github.svg)](https://saucelabs.com/u/dikareva_github)
+[![Selenium Test Status](https://saucelabs.com/browser-matrix/dikareva_github.svg)](https://saucelabs.com/u/dikareva_github)
 <a href="https://saucelabs.com/u/dikareva_github">
   <img src="https://saucelabs.com/browser-matrix/dikareva_github.svg" alt="Sauce Test Status"/>
 </a>
