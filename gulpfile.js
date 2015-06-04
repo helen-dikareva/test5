@@ -30,7 +30,7 @@ gulp.task('open-connect', function () {
 
 gulp.task('sauce-start', function () {
     return new Promise(function (resolve, reject) {
-        sauceTunnel = new SauceTunnel(SAUCELAB_USERNAME, SAUCELAB_PASSWORD, tunnelIdentifier, true, ['-l', 'logs/saucelabs-log.txt']);
+        sauceTunnel = new SauceTunnel(SAUCELAB_USERNAME, SAUCELAB_PASSWORD, tunnelIdentifier, true, ['-l', './logs/saucelabs-log.txt']);
 
         sauceTunnel.start(function (isCreated) {
             if (!isCreated)
