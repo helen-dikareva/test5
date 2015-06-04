@@ -14,6 +14,10 @@ var BROWSERS          = [
     {
         browserName: "firefox",
         platform:    "Windows 8"
+    },
+    {
+        browserName: "firefox",
+        platform:    "XP"
     }];
 
 var tunnelIdentifier  = Math.floor((new Date()).getTime() / 1000 - 1230768000).toString();
