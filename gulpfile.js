@@ -4,9 +4,9 @@ var gulp        = require('gulp'),
     SauceTunnel = require('sauce-tunnel'),
     QUnitRunner = require('./lib/saucelab-qunit-runner');
 
-var SAUCELAB_USERNAME = 'dikareva_github';
-var SAUCELAB_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
-var BROWSERS          = [
+var SAUCE_LABS_USERNAME = 'dikareva_github';
+var SAUCE_LABS_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
+var BROWSERS            = [
     {
         browserName: "chrome",
         platform:    "Windows 7"
@@ -34,7 +34,7 @@ gulp.task('open-connect', function () {
 
 gulp.task('sauce-start', function () {
     return new Promise(function (resolve, reject) {
-        sauceTunnel = new SauceTunnel(SAUCELAB_USERNAME, SAUCELAB_PASSWORD, tunnelIdentifier, true);
+        sauceTunnel = new SauceTunnel(SAUCE_LABS_USERNAME, SAUCE_LABS_PASSWORD, tunnelIdentifier, true);
 
         sauceTunnel.start(function (isCreated) {
             if (!isCreated)
@@ -49,8 +49,8 @@ gulp.task('sauce-start', function () {
 
 gulp.task('run-tests', ['open-connect', 'sauce-start'], function (callback) {
     var runner = new QUnitRunner({
-        username:         SAUCELAB_USERNAME,
-        key:              SAUCELAB_PASSWORD,
+        username:         SAUCE_LABS_USERNAME,
+        key:              SAUCE_LABS_PASSWORD,
         browsers:         BROWSERS,
         tunnelIdentifier: tunnelIdentifier
     });
@@ -86,18 +86,12 @@ gulp.task('close-connect', ['run-tests'], function () {
 
 });
 
-gulp.task('QUnit', ['close-connect', 'sauce-end'], function (arg) {
+gulp.task('QUnit', ['run-tests', 'sauce-end', 'close-connect'], function () {
     if (!taskSucceed)
         process.exit(1);
 });
 
 gulp.on('err', function () {
     if (sauceTunnelOpened)
-        sauceTunnel.stop(function () {
-            process.exit(1);
-        });
-    else
-        setTimeout(function () {
-            process.exit(1);
-        });
+        sauceTunnel.stop(new Function());
 });
