@@ -6,6 +6,9 @@ var gulp        = require('gulp'),
 
 var SAUCE_LABS_USERNAME = 'dikareva_github';
 var SAUCE_LABS_PASSWORD = '43b7cb4b-6208-4718-aaaf-81060cb3448e';
+console.log(process.env.SAUCELAB_USERNAME);
+console.log(process.env.SAUCELAB_PASSWORD);
+return;
 var BROWSERS            = [
     {
         browserName: "chrome",
