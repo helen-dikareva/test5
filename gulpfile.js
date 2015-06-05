@@ -7,12 +7,6 @@ var gulp        = require('gulp'),
 var SAUCE_LABS_USERNAME = process.env.SAUCELAB_USERNAME;
 var SAUCE_LABS_PASSWORD = process.env.SAUCELAB_PASSWORD;
 
-console.log('TRAVIS_BUILD_ID = ', process.env.TRAVIS_BUILD_ID);
-console.log('TRAVIS_BUILD_NUMBER = ', process.env.TRAVIS_BUILD_NUMBER);
-console.log('TRAVIS_COMMIT = ', process.env.TRAVIS_COMMIT);
-console.log('TRAVIS_JOB_ID = ', process.env.TRAVIS_JOB_ID);
-console.log('TRAVIS_JOB_NUMBER = ', process.env.TRAVIS_JOB_NUMBER);
-
 var BROWSERS            = [
     {
         browserName: "chrome",
